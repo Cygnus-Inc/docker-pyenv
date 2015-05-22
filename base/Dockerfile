@@ -32,6 +32,8 @@ RUN ["/bin/bash", "-c", "curl -k -L https://raw.githubusercontent.com/yyuu/pyenv
 # RUN ["/bin/bash", "-c", "/python/.pyenv/bin/pyenv update"]
 # RUN ["/bin/bash", "-c", "pyenv install --list"]
 
+RUN ["/bin/bash", "-c", "printenv"]
+RUN ["/bin/bash", "-c", "pwd"]
 RUN ["/bin/bash", "-c", "tree -a"]
 
 # RUN ["/bin/bash", "-c", "/root/.pyenv/bin/pyenv install --list"]
