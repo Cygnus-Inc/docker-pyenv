@@ -14,34 +14,19 @@ apt-get install -y --no-install-recommends libsqlite3-dev && \
 apt-get install -y --no-install-recommends libffi-dev && \
 apt-get install -y --no-install-recommends python-dev
 
-# apt-get build-dep -n --no-install-recommends python2.7 && \
-# apt-get build-dep -n --no-install-recommends python3.4
-RUN apt-get install tree
-
 RUN ["groupadd", "python"]
-RUN ["useradd", "python", "-s", "/bin/bash", "-D", "--base-dir", "/python", "-g", "python", "-m", "-G", "python"]
+RUN ["useradd", "python", "-s", "/bin/bash", "--home-dir", "/python", "-g", "python", "-m", "-G", "python"]
 ADD bash_profile.bash /python/.bash_profile
 ADD bashrc.bash /python/.bashrc
 RUN ["chown", "-R", "python:python", "/python"]
-# RUN ["/bin/bash", "-c", "printenv"]
 USER python
-# RUN ["/bin/bash", "-c", "printenv"]
 WORKDIR /python
-# RUN ["/bin/bash", "-c", "printenv"]
 ENV HOME /python
-# RUN ["/bin/bash", "-c", "printenv"]
-ENV BASH_ENV=/python/.bashrc
-# RUN ["/bin/bash", "-c", "printenv"]
+
 RUN ["/bin/bash", "-c", "curl -k -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash"]
-# RUN ["/bin/bash", "-c", "/python/.pyenv/bin/pyenv update"]
+RUN ["/bin/bash", "-c", "/python/.pyenv/bin/pyenv update"]
+RUN ["/bin/bash", "-c", "/python/.pyenv/bin/pyenv install --list"]
+
+# TODO: Fix the forkbomb/recursive eval that this seems to cause.
+# ENV BASH_ENV=/python/.bashrc
 # RUN ["/bin/bash", "-c", "pyenv install --list"]
-
-RUN ["/bin/bash", "-c", "printenv"]
-RUN ["/bin/bash", "-c", "ls -alh"]
-RUN ["/bin/bash", "-c", "tree -a"]
-
-# RUN ["/bin/bash", "-c", "/root/.pyenv/bin/pyenv install --list"]
-
-# RUN ["/bin/bash", "-c", "/root/.pyenv/bin/pyenv install 2.7.9"]
-# RUN ["/bin/bash", "-c", "/root/.pyenv/bin/pyenv install 3.4.3"]
-
