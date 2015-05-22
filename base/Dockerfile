@@ -19,12 +19,13 @@ apt-get install -y --no-install-recommends python-dev
 
 RUN ["groupadd", "python"]
 RUN ["useradd", "python", "-s", "/bin/bash", "-m", "-g", "python", "-G", "python"]
-ENV HOME /home/python
-WORKDIR /home/python
 ADD bash_profile.bash /python/.bash_profile
 ADD bashrc.bash /python/.bashrc
 RUN ["chown", "-R", "python:python", "/home/python"]
+ENV HOME /home/python
 ENV BASH_ENV=/python/.bash_profile
+WORKDIR /home/python
+USER python
 
 RUN ["/bin/bash", "-c", "curl -k -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash"]
 
