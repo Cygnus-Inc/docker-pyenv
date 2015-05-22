@@ -16,6 +16,7 @@ apt-get install -y --no-install-recommends python-dev
 
 # apt-get build-dep -n --no-install-recommends python2.7 && \
 # apt-get build-dep -n --no-install-recommends python3.4
+RUN apt-get install tree
 
 RUN ["groupadd", "python"]
 RUN ["useradd", "python", "-s", "/bin/bash", "-m", "-g", "python", "-G", "python"]
@@ -29,8 +30,9 @@ USER python
 
 RUN ["/bin/bash", "-c", "curl -k -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash"]
 # RUN ["/bin/bash", "-c", "/python/.pyenv/bin/pyenv update"]
-RUN ["/bin/bash", "-c", "tree -a"]
 # RUN ["/bin/bash", "-c", "pyenv install --list"]
+
+RUN ["/bin/bash", "-c", "tree -a"]
 
 # RUN ["/bin/bash", "-c", "/root/.pyenv/bin/pyenv install --list"]
 
